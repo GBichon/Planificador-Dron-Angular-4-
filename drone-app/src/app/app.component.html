@@ -1,0 +1,107 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Load Image</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <img [src]="image_url" style="margin-left:25%; margin-right:25%; width:50%" (click)="image.click()">
+    <input #image type="file" name="pic" accept="image/*" (change)="onImageChange($event)">
+
+    <div class="input-group input-group-sm mb-3" style="margin-top: 15px;">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">South West Lat/Lng</span>
+      </div>
+      <input [(ngModel)]="south_west_coordinate_latitude" type="number" class="form-control" aria-label="Latitude" aria-describedby="basic-addon1" step="0.0000000000001">
+      <input [(ngModel)]="south_west_coordinate_longitude" type="number" class="form-control" aria-label="Latitude" aria-describedby="basic-addon1" step="0.0000000000001">
+    </div>
+
+    <div class="input-group input-group-sm mb-3" style="margin-top: 15px;">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon2">North East Lat/Lng</span>
+      </div>
+      <input [(ngModel)]="north_east_coordinate_latitude" type="number" class="form-control" aria-label="Latitude" aria-describedby="basic-addon2" step="0.0000000000001">
+      <input [(ngModel)]="north_east_coordinate_longitude" type="number" class="form-control" aria-label="Latitude" aria-describedby="basic-addon2" step="0.0000000000001">
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="UploadImage(); modal.dismiss('Cross click')">Upload</button>
+  </div>
+</ng-template>
+
+<!-- Container -->
+<div class="container-fluid">
+
+  <!-- Settings Button -->
+
+    <!-- Map -->
+
+    <div name="map">
+
+      <div  class="gmap-settings-dropdown" ngbDropdown #myDrop="ngbDropdown" >
+        <button id="dropdownManual" ngbDropdownAnchor (focus)="myDrop.open()"></button>
+        <div ngbDropdownMenu class="gmap-settings-dropdown-menu" aria-labelledby="dropdownManual">
+          <button ngbDropdownItem (click)="ChangeMode()" *ngIf="satellite_mode_selected"><fa name="map"></fa>Change to Map</button>
+
+          <button ngbDropdownItem (click)="ChangeMode()" *ngIf="!satellite_mode_selected"><fa name="globe"></fa>Change to Satellite</button>
+
+          <button ngbDropdownItem (click)="GenerateCoveragePath()"><fa name="plane"></fa>Generate coverage path</button>
+          <button ngbDropdownItem (click)="LoadTestPolygon()"><fa name="info-circle"></fa>Load Test Polygon</button>
+          <button ngbDropdownItem (click)="OpenImageModal(content)"><fa name="photo"></fa>Load Image</button>
+
+          <button ngbDropdownItem (click)="CloseSettings()" style="text-align: center">Close</button>
+        </div>
+      </div>
+
+      <div [hidden]="!_GMap_Map_Ready" #GoogleMapsButtons></div>
+
+
+      <agm-map
+        [streetViewControl]=false
+        (mapReady)="onMapReady($event);">
+
+
+        <agm-overlay  style="z-index:-9999" *ngIf="ground_overlay_image !== undefined"
+          [latitude]  = "ground_overlay_latitude"
+          [longitude] = "ground_overlay_longitude"
+          [bounds] = " {
+              x:
+              {
+                latitude:0.0,
+                longitude:0.0
+              },
+              y:
+              {
+                latitude: ground_overlay_bounds_y_latitude,
+                longitude: ground_overlay_bounds_y_longitude
+              }
+            }"
+          [zIndex] = "ground_overlay_zindex" >
+
+          <div style="width:100%;height:100%;background-color:blue; opacity:0.65;clickable:false;z-index:-9999999">
+              <img [src] = "ground_overlay_image" style="width: 100%; height: 100%; z-index:-9999999">
+          </div>
+        </agm-overlay>
+
+          <!--
+          <div name="MapModeButtons">
+            <select id="CHANGE-MODE"  class="form-control gmap-select">
+              <option value="satellite">Satellite</option>
+              <option value="roadmap">Roadmap</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="terrain">Terrain</option>
+            </select>
+
+            <button id="TEST" class="toggle-button controls btn gmap-button bottom" (click)="testMethod();">
+                <fa name="trash"></fa>
+            </button>
+
+          </div>
+          -->
+      </agm-map>
+    </div>
+
+</div>

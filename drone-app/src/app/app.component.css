@@ -1,0 +1,99 @@
+.container-fluid{
+  padding:0px;
+}
+
+agm-map {
+  height: 100vh;
+  width: 100%;
+}
+
+.gmap-select{
+  width: 10em;
+  margin-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 49px;
+  text-align: center;
+}
+
+.gmap-settings-dropdown{
+  position: absolute;
+  right: calc(7px);
+  top: -29px;
+}
+
+.gmap-settings-dropdown-menu{
+  margin-top: 20px;
+}
+
+.gmap-settings-dropdown-menu button fa{
+  margin-right: 10px;
+}
+
+
+
+
+.gm-controls .gm-button {
+  text-align: center;
+  display: block;
+  font-size: 1.8em;
+  width: 2.2em;
+  max-width: 2.2em;
+  padding: 9px;
+  margin-left: 8px;
+  margin-right: 8px;
+  border: solid;
+  border-width: thin thin thin thin;
+  background-color: #ffffff;
+  color: #666666;
+  border-color: #e6e6e6;
+  border-width: thin;
+  position: relative;
+}
+
+.gm-controls .gm-button:focus{
+  outline: none;
+}
+
+.gm-controls .gm-button:hover {
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.gm-controls .gm-button:first-child{
+  border-radius: 5px 5px 0px 0px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  border-bottom: none;
+  padding-bottom: 10px;
+}
+
+.gm-controls .gm-button:not(:first-child){
+  border-top: none;
+  border-bottom: none;
+  padding-bottom: 10px;
+}
+
+.gm-controls .gm-button:not(:first-child):before {
+  content:'';
+  width:70%;
+  left:15%;
+  top: -2px;
+  height: 1px;
+  background: #e6e6e6;
+  position: absolute;
+}
+
+.gm-controls .gm-button:last-child{
+  border-radius: 0px 0px 5px 5px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  border-top: none;
+  border-bottom: solid;
+  border-color: #e6e6e6;
+  padding-bottom: 9px;
+}
+
+.gm-controls .gm-button:only-child{
+  border-radius: 5px 5px 5px 5px;
+  margin-top: 20px;
+}
